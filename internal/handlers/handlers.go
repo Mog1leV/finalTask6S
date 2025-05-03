@@ -30,7 +30,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	convert := service.ConverterTo(string(dataFile))
 	extension := filepath.Ext(header.Filename)
-	newFileName := time.Now().UTC().String() + extension
+	newFileName := time.Now().UTC().Format("2006-01-02_15-04-05") + extension
 
 	newFile, err := os.Create(newFileName)
 	if err != nil {
