@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -11,12 +10,7 @@ import (
 )
 
 func MainHandler(w http.ResponseWriter, r *http.Request) {
-	filePath := "index.html"
-	data, err := os.ReadFile(filePath)
-	if err != nil {
-		log.Fatal(err)
-	}
-	w.Write(data)
+	http.ServeFile(w, r, "index.html")
 }
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {

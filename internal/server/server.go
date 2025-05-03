@@ -20,8 +20,8 @@ func (s *Server) RunServer() error {
 
 func NewServer(logger *log.Logger) *Server {
 	mux := http.NewServeMux()
-	http.HandleFunc("/upload", handlers.UploadHandler)
-	http.HandleFunc("/", handlers.MainHandler)
+	mux.HandleFunc("/", handlers.MainHandler)
+	mux.HandleFunc("/upload", handlers.UploadHandler)
 
 	serv := &http.Server{
 		Addr:         ":8080",

@@ -11,6 +11,6 @@ func main() {
 	server := server.NewServer(logger)
 
 	if err := server.RunServer(); err != nil {
-		server.Logger.Fatalf("невозможно запустить сервер %s", err)
+		server.Logger.Fatalf("error starting server: %s", err)
 	}
 }
