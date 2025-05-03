@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/Yandex-Practicum/go1fl-sprint6-final/internal/service"
@@ -14,7 +15,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
-	file, _, err := r.FormFile("myFile")
+	file, header, err := r.FormFile("myFile")
 	if err != nil {
 		http.Error(w, "error while receiving file", http.StatusInternalServerError)
 		return
@@ -28,7 +29,8 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	convert := service.ConverterTo(string(dataFile))
-	newFileName := time.Now().UTC().String() + ".txt"
+	extension := filepath.Ext(header.Filename)
+	newFileName := time.Now().UTC().String() + extension
 
 	newFile, err := os.Create(newFileName)
 	if err != nil {
